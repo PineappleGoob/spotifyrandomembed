@@ -1,0 +1,31 @@
+<body style="background-color: transparent;">
+    <!-- The Spotify player widget container -->
+    <iframe id="spotiframe" data-testid="embed-iframe" style="border-radius:12px" src="" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <script>
+    async function fetchServerStatus() {
+        const outputDiv = document.getElementById('spotiframe');
+        
+        try {
+            // Step 1: Fire the GET request to your Flask route
+            const response = await fetch('/api/status?user_id=123');
+
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+            // Step 2: Parse the incoming JSON object
+            const data = await response.json();
+            
+            // Step 3: Extract the 22-character track ID from the message property
+            const trackId = data.message; 
+            
+            // Step 4: Construct the official Spotify embed URL using .src (NOT .href)
+            outputDiv.src = `https://open.spotify.com/embed/track/${trackId}?utm_source=generator&si=0b56082e08394242`;
+            
+        } catch (error) {
+            console.error('GET Fetch Error:', error);
+        }
+    }
+    
+    // Automatically trigger the function when the page opens
+    fetchServerStatus();
+    </script>
+</body>

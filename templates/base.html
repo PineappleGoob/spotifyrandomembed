@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Jinja fills in the title variable from app.py dynamically -->
+    <title>{{ title }} - My Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a> | 
+        <a href="{{ url_for('about') }}">About</a>
+    </nav>
+
+    <hr>
+
+    <main class="container">
+        <!-- Child templates will inject their core layout inside this block -->
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <hr>
+    <footer>
+        <p>&copy; 2026 Flask Template App</p>
+    </footer>
+
+</body>
+</html>
